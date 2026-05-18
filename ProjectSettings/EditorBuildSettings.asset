@@ -4,5 +4,17 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_AnakRantau/Scenes/Bootstrap.unity
+    guid: 09debf14eff94854999478bf1f391bb2
+  - enabled: 1
+    path: Assets/_AnakRantau/Scenes/LoadingScreen.unity
+    guid: 06ad1edde91a2f94f96279e12a7c2b3a
+  - enabled: 1
+    path: Assets/_AnakRantau/Scenes/MainMenu.unity
+    guid: f0f530d4b3b29024dbf1bdc457663275
+  - enabled: 1
+    path: Assets/_AnakRantau/Scenes/Game_Level1_Room.unity
+    guid: 585a149e45093694eb2fe55b4307c0c8
   m_configObjects: {}

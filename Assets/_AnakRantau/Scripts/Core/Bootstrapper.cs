@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 using AnakRantau.SceneManagement;
 
@@ -27,9 +28,15 @@ namespace AnakRantau.Core
 
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += HandleSceneLoaded;
 
             GameState = new GameStateService();
             GameState.SetState(AppState.Bootstrap);
+        }
+
+        private void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= HandleSceneLoaded;
         }
 
         private void Start()
@@ -40,6 +47,26 @@ namespace AnakRantau.Core
         public void SetGameState(AppState state)
         {
             GameState?.SetState(state);
+        }
+
+        private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            if (scene.name == SceneNames.LoadingScreen)
+            {
+                RuntimeSceneUiFactory.BuildLoadingScreen(this);
+                return;
+            }
+
+            if (scene.name == SceneNames.MainMenu)
+            {
+                RuntimeSceneUiFactory.BuildMainMenu();
+                return;
+            }
+
+            if (scene.name == SceneNames.GameLevel1Room)
+            {
+                RuntimeSceneUiFactory.BuildGameScene();
+            }
         }
     }
 }

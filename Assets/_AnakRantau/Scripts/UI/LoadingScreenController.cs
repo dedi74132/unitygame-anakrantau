@@ -16,9 +16,13 @@ namespace AnakRantau.UI
         [Header("UI")]
         [SerializeField] private Slider progressBar;
         [SerializeField] private Text loadingText;
+        [SerializeField] private Text progressLabel;
 
         [Header("Fallback Text")]
         [SerializeField] private string defaultLoadingMessage = "Memuat...";
+
+        [Header("Timing")]
+        [SerializeField] private float minimumVisibleSeconds = 5.0f;
 
         private void Start()
         {
@@ -47,11 +51,21 @@ namespace AnakRantau.UI
                 progressBar.value = 0f;
             }
 
+            if (progressLabel != null)
+            {
+                progressLabel.text = "0%";
+            }
+
             StartCoroutine(LoadTargetScene(targetSceneName));
         }
 
         private IEnumerator LoadTargetScene(string targetSceneName)
         {
+            if (minimumVisibleSeconds > 0f)
+            {
+                yield return new WaitForSecondsRealtime(minimumVisibleSeconds);
+            }
+
             if (!Application.CanStreamedLevelBeLoaded(targetSceneName))
             {
                 Debug.LogError($"Scene '{targetSceneName}' is not added to Build Settings.");
@@ -65,6 +79,12 @@ namespace AnakRantau.UI
                     if (progressBar != null)
                     {
                         progressBar.value = progress;
+                    }
+
+                    if (progressLabel != null)
+                    {
+                        int percent = Mathf.RoundToInt(progress * 100f);
+                        progressLabel.text = $"{percent}%";
                     }
                 },
                 holdAtMaxProgress: true));

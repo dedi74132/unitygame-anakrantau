@@ -12,10 +12,23 @@ namespace AnakRantau.UI
     public sealed class MainMenuController : MonoBehaviour
     {
         [Header("Buttons")]
+        [SerializeField] private Button startButton;
         [SerializeField] private Button continueButton;
+        [SerializeField] private Button settingsButton;
+        [SerializeField] private Button exitButton;
+        [SerializeField] private Button closeSettingsButton;
 
         [Header("Settings Panel")]
         [SerializeField] private GameObject settingsPanel;
+
+        private void Awake()
+        {
+            WireButton(startButton, OnStartGameClicked);
+            WireButton(continueButton, OnContinueClicked);
+            WireButton(settingsButton, OnSettingsClicked);
+            WireButton(exitButton, OnExitClicked);
+            WireButton(closeSettingsButton, OnCloseSettingsClicked);
+        }
 
         private void Start()
         {
@@ -32,6 +45,14 @@ namespace AnakRantau.UI
             if (settingsPanel != null)
             {
                 settingsPanel.SetActive(false);
+            }
+        }
+
+        private static void WireButton(Button button, UnityEngine.Events.UnityAction action)
+        {
+            if (button != null)
+            {
+                button.onClick.AddListener(action);
             }
         }
 

@@ -6,7 +6,8 @@ using AnakRantau.Core;
 namespace AnakRantau.Game
 {
     /// <summary>
-    /// Placeholder controller for the first playable room.
+    /// Entry controller for the Level 1 gameplay scene.
+    /// For now this scene behaves like a map + HUD placeholder.
     /// </summary>
     public sealed class GameLevel1RoomController : MonoBehaviour
     {
